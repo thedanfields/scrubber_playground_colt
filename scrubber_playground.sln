@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2019
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scrubber_playground", "scrubber_playground\scrubber_playground.csproj", "{AC09B3CA-2D1C-4151-A1BD-84507D4BE49B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{63214CE2-502D-4AB0-8D35-F1596C86442C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fileparser.tests.unit", "fileparser.tests.unit\fileparser.tests.unit.csproj", "{25869E35-17BC-4DE2-B041-CC93C6A55181}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC09B3CA-2D1C-4151-A1BD-84507D4BE49B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC09B3CA-2D1C-4151-A1BD-84507D4BE49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC09B3CA-2D1C-4151-A1BD-84507D4BE49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC09B3CA-2D1C-4151-A1BD-84507D4BE49B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25869E35-17BC-4DE2-B041-CC93C6A55181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25869E35-17BC-4DE2-B041-CC93C6A55181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25869E35-17BC-4DE2-B041-CC93C6A55181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25869E35-17BC-4DE2-B041-CC93C6A55181}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{25869E35-17BC-4DE2-B041-CC93C6A55181} = {63214CE2-502D-4AB0-8D35-F1596C86442C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFE0351B-AB70-4523-B8D6-70775ECB5762}
+	EndGlobalSection
+EndGlobal
