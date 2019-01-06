@@ -1,18 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace scrubber_playground.file_parsers.hero.record_types
 {
     public class HeroRecordFactory : IRecordFactory
-    {   
+    {
+        private Dictionary<Type, IEnumerable<System.Reflection.PropertyInfo>> PropertyInfoByTypeDict = new Dictionary<Type, IEnumerable<System.Reflection.PropertyInfo>>();
+
         public IFileRecord Build(string fromData)
         {
             IFileRecord record = new NameRecord { HeroName = "Old Dad Man" };
 
-            // TODO: Add code here to complete this function.  
-            //       You should make use of the Parse method below.
+            if(string.IsNullOrEmpty(fromData))
+            {
+                return null;
+            }
 
-            return record;
+            switch (char.ToUpper(fromData.First()))
+            {
+                case 'N':
+                    return Parse<NameRecord>(fromData);
+                case 'P':
+                    return Parse<PowerRecord>(fromData);
+                case 'S':
+                    return Parse<SecretIdentityRecord>(fromData);
+                default:
+                    throw new UnknownRecordTypeException(fromData);
+            }
         }
 
         private T Parse<T>(string someData)
@@ -20,13 +35,22 @@ namespace scrubber_playground.file_parsers.hero.record_types
         {
             // BONUS TODO: cache these reflection operations to prevent re-execution on subsequent file parses
             var toType = typeof(T);
-            var fileMappedProperites = toType.GetProperties()
-                                        .Where(propery => Attribute.IsDefined(propery, typeof(FileMapAttribute)));
+
+            IEnumerable<System.Reflection.PropertyInfo> fileMappedProperties;
+            if(PropertyInfoByTypeDict.ContainsKey(toType))
+            {
+                fileMappedProperties = PropertyInfoByTypeDict[toType];
+            }
+            else
+            {
+                fileMappedProperties = toType.GetProperties().Where(property => Attribute.IsDefined(property, typeof(FileMapAttribute)));
+                PropertyInfoByTypeDict.Add(toType, fileMappedProperties);
+            }
 
             var record = new T();
-            foreach(var fileMappedPropery in fileMappedProperites)
+            foreach(var fileMappedProperty in fileMappedProperties)
             {
-                var attribute = fileMappedPropery.GetCustomAttributes(typeof(FileMapAttribute), false).Single();
+                var attribute = fileMappedProperty.GetCustomAttributes(typeof(FileMapAttribute), false).Single();
                 var fileMapAttribute = attribute as FileMapAttribute;
 
                 var startIndex = fileMapAttribute.StartIndex;
@@ -34,7 +58,7 @@ namespace scrubber_playground.file_parsers.hero.record_types
 
                 var value = someData.Substring(startIndex, length);
 
-                fileMappedPropery.SetValue(record, value.Trim());
+                fileMappedProperty.SetValue(record, value.Trim());
             }
 
             return record;
